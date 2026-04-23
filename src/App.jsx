@@ -80,7 +80,7 @@ function MermaidChart({ code, zoom }) {
         }
         window.mermaid.initialize({
           startOnLoad: false,
-          theme: "dark",
+          theme: "default",
           flowchart: {
             curve: "linear",
             padding: 24,
@@ -89,19 +89,19 @@ function MermaidChart({ code, zoom }) {
             useMaxWidth: false,
           },
           themeVariables: {
-            primaryColor: "#1a1f2e",
-            primaryTextColor: "#e2e8f0",
+            primaryColor: "#ffffff",
+            primaryTextColor: "#1e293b",
             primaryBorderColor: "#3d5af1",
             lineColor: "#3d5af1",
-            secondaryColor: "#0f1420",
-            tertiaryColor: "#1a2035",
-            background: "#080c18",
-            mainBkg: "#141929",
+            secondaryColor: "#f1f5f9",
+            tertiaryColor: "#e2e8f0",
+            background: "#ffffff",
+            mainBkg: "#ffffff",
             nodeBorder: "#3d5af1",
-            clusterBkg: "#0c1020",
-            clusterBorder: "#1e2a45",
-            titleColor: "#94a3b8",
-            edgeLabelBackground: "#0f1420",
+            clusterBkg: "#f8fafc",
+            clusterBorder: "#cbd5e1",
+            titleColor: "#64748b",
+            edgeLabelBackground: "#f8fafc",
             fontFamily: "IBM Plex Mono, monospace",
             fontSize: "13px",
           },
@@ -118,13 +118,13 @@ function MermaidChart({ code, zoom }) {
   }, [code]);
 
   if (error) return (
-    <div style={{ color: "#f87171", padding: "1.5rem", fontFamily: "monospace", fontSize: "0.72rem", lineHeight: 1.6 }}>
+    <div style={{ color: "#dc2626", padding: "1.5rem", fontFamily: "monospace", fontSize: "0.72rem", lineHeight: 1.6 }}>
       <strong>Render error:</strong><br />{error}
     </div>
   );
 
   if (!svg) return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "200px", color: "#1e2a45" }}>
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "200px", color: "#94a3b8" }}>
       <span style={{ fontSize: "0.75rem", fontFamily: "monospace" }}>rendering...</span>
     </div>
   );
@@ -276,7 +276,7 @@ export default function App() {
         },
       ];
 
-      const res = await fetch("/api/analyse", {
+      const res = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -310,14 +310,14 @@ export default function App() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@400;600;700&display=swap');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #080c18; }
+        body { background: #f8fafc; }
         ::-webkit-scrollbar { width: 5px; height: 5px; }
-        ::-webkit-scrollbar-track { background: #0a0e1c; }
-        ::-webkit-scrollbar-thumb { background: #1a2540; border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
         @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:0.9} }
-        .flow-item:hover { background: #0d1128 !important; }
-        .zoom-btn:hover { background: #141929 !important; color: #94a3b8 !important; }
+        .flow-item:hover { background: #f1f5f9 !important; }
+        .zoom-btn:hover { background: #e2e8f0 !important; color: #334155 !important; }
         .chart-panel svg { display: block; }
       `}</style>
 
@@ -443,48 +443,48 @@ export default function App() {
 }
 
 const S = {
-  root: { display: "flex", minHeight: "100vh", background: "#080c18", fontFamily: "'Syne', sans-serif", color: "#e2e8f0" },
-  sidebar: { width: "205px", minWidth: "205px", background: "#0a0e1c", borderRight: "1px solid #0f1628", padding: "1.5rem 1rem", display: "flex", flexDirection: "column", gap: "0.35rem" },
+  root: { display: "flex", minHeight: "100vh", background: "#f8fafc", fontFamily: "'Syne', sans-serif", color: "#1e293b" },
+  sidebar: { width: "205px", minWidth: "205px", background: "#ffffff", borderRight: "1px solid #e2e8f0", padding: "1.5rem 1rem", display: "flex", flexDirection: "column", gap: "0.35rem" },
   brand: { display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.75rem" },
   brandMark: { fontSize: "1.25rem", color: "#3d5af1" },
-  brandName: { fontFamily: "'Syne', sans-serif", fontWeight: "700", fontSize: "0.95rem", letterSpacing: "0.1em", color: "#f1f5f9" },
-  sectionLabel: { fontSize: "0.58rem", fontWeight: "600", letterSpacing: "0.15em", textTransform: "uppercase", color: "#1e2a45", marginBottom: "0.35rem" },
-  emptyNote: { fontSize: "0.7rem", color: "#1a2540", lineHeight: 1.5 },
+  brandName: { fontFamily: "'Syne', sans-serif", fontWeight: "700", fontSize: "0.95rem", letterSpacing: "0.1em", color: "#0f172a" },
+  sectionLabel: { fontSize: "0.58rem", fontWeight: "600", letterSpacing: "0.15em", textTransform: "uppercase", color: "#94a3b8", marginBottom: "0.35rem" },
+  emptyNote: { fontSize: "0.7rem", color: "#cbd5e1", lineHeight: 1.5 },
   flowItem: { display: "flex", alignItems: "center", gap: "0.45rem", padding: "0.4rem 0.55rem", borderRadius: "5px", cursor: "pointer", transition: "background 0.12s" },
   flowDot: { width: "5px", height: "5px", borderRadius: "50%", background: "#3d5af1", flexShrink: 0 },
   flowName: { fontSize: "0.72rem", color: "#64748b", flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" },
-  flowMeta: { fontSize: "0.6rem", color: "#1e2a45" },
+  flowMeta: { fontSize: "0.6rem", color: "#94a3b8" },
   main: { flex: 1, padding: "1.75rem 2rem", display: "flex", flexDirection: "column", gap: "1rem", overflowY: "auto", minWidth: 0 },
   topBar: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
-  title: { fontSize: "1.3rem", fontWeight: "700", color: "#f1f5f9", letterSpacing: "-0.01em" },
-  subtitle: { fontSize: "0.72rem", color: "#1e2a45", marginTop: "0.2rem", fontFamily: "'IBM Plex Mono', monospace" },
-  dropzone: { border: "1px dashed #111827", borderRadius: "10px", background: "rgba(61,90,241,0.015)", cursor: "pointer" },
+  title: { fontSize: "1.3rem", fontWeight: "700", color: "#0f172a", letterSpacing: "-0.01em" },
+  subtitle: { fontSize: "0.72rem", color: "#94a3b8", marginTop: "0.2rem", fontFamily: "'IBM Plex Mono', monospace" },
+  dropzone: { border: "1.5px dashed #cbd5e1", borderRadius: "10px", background: "#ffffff", cursor: "pointer" },
   dropInner: { display: "flex", flexDirection: "column", alignItems: "center", gap: "0.3rem", padding: "1.75rem", cursor: "pointer" },
   dropIcon: { fontSize: "1.6rem", color: "#3d5af1" },
-  dropText: { fontSize: "0.8rem", color: "#334155" },
-  dropHint: { fontSize: "0.67rem", color: "#1e2a45", fontFamily: "'IBM Plex Mono', monospace" },
+  dropText: { fontSize: "0.8rem", color: "#64748b" },
+  dropHint: { fontSize: "0.67rem", color: "#94a3b8", fontFamily: "'IBM Plex Mono', monospace" },
   controls: { display: "flex", gap: "0.6rem", alignItems: "center" },
-  input: { flex: 1, background: "#0a0e1c", border: "1px solid #0f1628", borderRadius: "6px", padding: "0.5rem 0.85rem", color: "#e2e8f0", fontSize: "0.8rem", fontFamily: "'Syne', sans-serif", outline: "none" },
+  input: { flex: 1, background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "6px", padding: "0.5rem 0.85rem", color: "#1e293b", fontSize: "0.8rem", fontFamily: "'Syne', sans-serif", outline: "none" },
   analyseBtn: { background: "#3d5af1", color: "#fff", border: "none", borderRadius: "6px", padding: "0.5rem 1rem", fontFamily: "'Syne', sans-serif", fontSize: "0.8rem", fontWeight: "600", cursor: "pointer", whiteSpace: "nowrap", transition: "opacity 0.15s" },
-  clearBtn: { background: "transparent", color: "#1e2a45", border: "1px solid #0f1628", borderRadius: "6px", padding: "0.5rem 0.75rem", fontFamily: "'Syne', sans-serif", fontSize: "0.75rem", cursor: "pointer" },
+  clearBtn: { background: "transparent", color: "#94a3b8", border: "1px solid #e2e8f0", borderRadius: "6px", padding: "0.5rem 0.75rem", fontFamily: "'Syne', sans-serif", fontSize: "0.75rem", cursor: "pointer" },
   thumbRow: { display: "flex", flexWrap: "wrap", gap: "0.5rem" },
-  thumb: { position: "relative", width: "76px", height: "56px", borderRadius: "5px", overflow: "hidden", border: "1px solid #111827" },
+  thumb: { position: "relative", width: "76px", height: "56px", borderRadius: "5px", overflow: "hidden", border: "1px solid #e2e8f0" },
   thumbImg: { width: "100%", height: "100%", objectFit: "cover" },
-  thumbX: { position: "absolute", top: "2px", right: "2px", background: "rgba(0,0,0,0.8)", color: "#fff", border: "none", borderRadius: "3px", width: "15px", height: "15px", fontSize: "0.5rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" },
-  errBox: { background: "rgba(239,68,68,0.07)", border: "1px solid rgba(239,68,68,0.15)", color: "#f87171", borderRadius: "6px", padding: "0.65rem 0.9rem", fontSize: "0.75rem", fontFamily: "'IBM Plex Mono', monospace" },
+  thumbX: { position: "absolute", top: "2px", right: "2px", background: "rgba(0,0,0,0.55)", color: "#fff", border: "none", borderRadius: "3px", width: "15px", height: "15px", fontSize: "0.5rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" },
+  errBox: { background: "#fef2f2", border: "1px solid #fecaca", color: "#dc2626", borderRadius: "6px", padding: "0.65rem 0.9rem", fontSize: "0.75rem", fontFamily: "'IBM Plex Mono', monospace" },
   outputGrid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.9rem", flex: 1, minHeight: "500px" },
-  panel: { background: "#0a0e1c", border: "1px solid #0f1628", borderRadius: "9px", display: "flex", flexDirection: "column", overflow: "hidden", minWidth: 0 },
-  panelHead: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.6rem 0.9rem", borderBottom: "1px solid #0f1628", flexShrink: 0 },
-  panelLabel: { fontSize: "0.62rem", fontWeight: "600", letterSpacing: "0.12em", textTransform: "uppercase", color: "#1e2a45" },
+  panel: { background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "9px", display: "flex", flexDirection: "column", overflow: "hidden", minWidth: 0 },
+  panelHead: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.6rem 0.9rem", borderBottom: "1px solid #f1f5f9", flexShrink: 0 },
+  panelLabel: { fontSize: "0.62rem", fontWeight: "600", letterSpacing: "0.12em", textTransform: "uppercase", color: "#94a3b8" },
   scrollBox: { overflowX: "auto", overflowY: "auto", flex: 1, padding: "1rem" },
   pre: { fontFamily: "'IBM Plex Mono', monospace", fontSize: "0.7rem", color: "#3d5af1", lineHeight: 1.8, whiteSpace: "pre", minWidth: "max-content" },
-  actionBtn: { background: "transparent", color: "#3d5af1", border: "1px solid rgba(61,90,241,0.25)", borderRadius: "5px", padding: "0.35rem 0.75rem", fontFamily: "'Syne', sans-serif", fontSize: "0.7rem", fontWeight: "600", cursor: "pointer" },
-  zBtn: { background: "#0c1020", color: "#334155", border: "1px solid #0f1628", borderRadius: "3px", width: "20px", height: "20px", fontSize: "0.8rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.1s" },
-  zLabel: { fontSize: "0.62rem", color: "#1e2a45", fontFamily: "'IBM Plex Mono', monospace", minWidth: "30px", textAlign: "center" },
+  actionBtn: { background: "transparent", color: "#3d5af1", border: "1px solid rgba(61,90,241,0.3)", borderRadius: "5px", padding: "0.35rem 0.75rem", fontFamily: "'Syne', sans-serif", fontSize: "0.7rem", fontWeight: "600", cursor: "pointer" },
+  zBtn: { background: "#f8fafc", color: "#64748b", border: "1px solid #e2e8f0", borderRadius: "3px", width: "20px", height: "20px", fontSize: "0.8rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.1s" },
+  zLabel: { fontSize: "0.62rem", color: "#94a3b8", fontFamily: "'IBM Plex Mono', monospace", minWidth: "30px", textAlign: "center" },
   loadingWrap: { display: "flex", flexDirection: "column", alignItems: "center", gap: "0.9rem", padding: "3rem" },
-  spinner: { width: "26px", height: "26px", border: "2px solid #0f1628", borderTop: "2px solid #3d5af1", borderRadius: "50%", animation: "spin 0.65s linear infinite" },
-  loadingText: { fontSize: "0.72rem", color: "#1e2a45", fontFamily: "'IBM Plex Mono', monospace", animation: "pulse 1.4s ease-in-out infinite" },
+  spinner: { width: "26px", height: "26px", border: "2px solid #e2e8f0", borderTop: "2px solid #3d5af1", borderRadius: "50%", animation: "spin 0.65s linear infinite" },
+  loadingText: { fontSize: "0.72rem", color: "#94a3b8", fontFamily: "'IBM Plex Mono', monospace", animation: "pulse 1.4s ease-in-out infinite" },
   empty: { flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "0.7rem", padding: "4rem" },
-  emptyIcon: { fontSize: "2.75rem", color: "#0f1628" },
-  emptyText: { fontSize: "0.75rem", color: "#1a2540", textAlign: "center", maxWidth: "260px", fontFamily: "'IBM Plex Mono', monospace" },
+  emptyIcon: { fontSize: "2.75rem", color: "#e2e8f0" },
+  emptyText: { fontSize: "0.75rem", color: "#cbd5e1", textAlign: "center", maxWidth: "260px", fontFamily: "'IBM Plex Mono', monospace" },
 };
