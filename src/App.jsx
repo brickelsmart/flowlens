@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 
-const ANTHROPIC_MODEL = "claude-sonnet-4-20250514";
+const ANTHROPIC_MODEL = "claude-sonnet-4-5";
 
 const SYSTEM_PROMPT = `You are a Senior Product UX Analyst and Systems Flow Architect working on a fintech mobile product.
 
