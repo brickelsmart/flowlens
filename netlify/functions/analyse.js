@@ -1,3 +1,5 @@
+const https = require("https");
+
 exports.handler = async function (event) {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
@@ -19,28 +21,41 @@ exports.handler = async function (event) {
     return { statusCode: 400, body: JSON.stringify({ error: { message: "Invalid JSON body." } }) };
   }
 
-  try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+  const postData = JSON.stringify(body);
+
+  return new Promise((resolve) => {
+    const options = {
+      hostname: "api.anthropic.com",
+      path: "/v1/messages",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Content-Length": Buffer.byteLength(postData),
         "x-api-key": ANTHROPIC_API_KEY,
         "anthropic-version": "2023-06-01",
       },
-      body: JSON.stringify(body),
+    };
+
+    const req = https.request(options, (res) => {
+      let data = "";
+      res.on("data", (chunk) => { data += chunk; });
+      res.on("end", () => {
+        resolve({
+          statusCode: res.statusCode,
+          headers: { "Content-Type": "application/json" },
+          body: data,
+        });
+      });
     });
 
-    const data = await response.json();
+    req.on("error", (err) => {
+      resolve({
+        statusCode: 502,
+        body: JSON.stringify({ error: { message: "Failed to reach Anthropic API: " + err.message } }),
+      });
+    });
 
-    return {
-      statusCode: response.status,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    };
-  } catch (err) {
-    return {
-      statusCode: 502,
-      body: JSON.stringify({ error: { message: "Failed to reach Anthropic API: " + err.message } }),
-    };
-  }
+    req.write(postData);
+    req.end();
+  });
 };
